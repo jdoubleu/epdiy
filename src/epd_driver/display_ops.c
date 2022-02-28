@@ -15,15 +15,12 @@ void IRAM_ATTR busy_delay(uint32_t cycles) {
   };
 }
 
-
 void epd_poweron() {
-  i2s_gpio_attach();
   epd_board->poweron();
 }
 
 void epd_poweroff() {
   epd_board->poweroff();
-  i2s_gpio_detach();
 }
 
 void epd_deinit() {
@@ -58,8 +55,6 @@ void IRAM_ATTR epd_skip() {
 void IRAM_ATTR epd_output_row(uint32_t output_time_dus) {
   while (i2s_is_busy() || rmt_busy()) {
   };
-
-  fast_gpio_set_hi(STH);
 
   latch_row();
 
