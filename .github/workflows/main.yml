@@ -24,7 +24,7 @@ jobs:
           - mpd_status
           - terminal
           - www-image
-          
+
     continue-on-error: ${{ matrix.version == 'latest' }}
 
     steps:
@@ -40,6 +40,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: "espressif/idf:${{ matrix.version }}"
+    env:
+      ARDUINO_SKIP_IDF_VERSION_CHECK: 1
     strategy:
       fail-fast: false
       matrix:
@@ -53,7 +55,7 @@ jobs:
             arduino-esp32: 2.0.3
           - version: latest
             arduino-esp32: master
-          
+
 
     steps:
       - name: Install latest git
