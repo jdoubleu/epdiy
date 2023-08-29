@@ -351,7 +351,7 @@ static void http_post(void)
     esp_http_client_handle_t client = esp_http_client_init(&config);
 
     #if DEBUG_VERBOSE
-      printf("Free heap before HTTP download: %"PRIu32"\n", xPortGetFreeHeapSize());
+      printf("Free heap before HTTP download: %zu\n", xPortGetFreeHeapSize());
       if (esp_http_client_get_transport_type(client) == HTTP_TRANSPORT_OVER_SSL && config.cert_pem) {
         printf("SSL CERT:\n%s\n\n", (char *)server_cert_pem_start);
       }
@@ -374,8 +374,8 @@ static void http_post(void)
     {
         ESP_LOGE(TAG, "\nHTTP GET request failed: %s", esp_err_to_name(err));
     }
-    
-    
+
+
     esp_http_client_cleanup(client);
 
     #if MILLIS_DELAY_BEFORE_SLEEP>0
@@ -515,7 +515,7 @@ void app_main() {
   if (source_buf == NULL) {
       ESP_LOGE("main", "Initial alloc source_buf failed!");
   }
-  printf("Free heap after buffers allocation: %"PRIu32"\n", xPortGetFreeHeapSize());
+  printf("Free heap after buffers allocation: %zu\n", xPortGetFreeHeapSize());
 
   double gammaCorrection = 1.0 / gamma_value;
   for (int gray_value =0; gray_value<256;gray_value++)
@@ -553,6 +553,6 @@ void app_main() {
       epd_draw_pixel(x, EPD_HEIGHT-1, 0, fb);
   }
   epd_hl_update_screen(&hl, MODE_GC16, 25); */
-  
+
   http_post();
 }
